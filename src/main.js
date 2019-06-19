@@ -6,6 +6,7 @@ import './assets/js/rem.js';
 import './assets/font-awesome-4.7.0/css/font-awesome.min.css';
 import router from './router.js';
 import './axios.js';
+
 Vue.config.productionTip = false
 
 new Vue({
