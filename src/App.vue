@@ -3,19 +3,54 @@
     <Header class="header"></Header>
     <router-view class="main"></router-view>
     <Footer class="footer"></Footer>
+		<Sidebar v-if='bar'></Sidebar>
+		<div class="mark" v-if="mark"></div>
+		<register v-if="reg" class="reg"></register>
+		<login class="log" v-if="log"></login>
+		<glass></glass>
   </div>
 </template>
 
 <script>
 
- import Header from './components/Header.vue'
- import Footer from './components/Footer.vue'
+ import Header from './components/Header.vue';
+ import Footer from './components/Footer.vue';
+ import Sidebar from './components/Sidebar.vue';
+ import register from './pages/register.vue';
+ import login from './pages/login.vue';
+ import glass from './pages/glass.vue';
 
 export default {
-  components:{
-    Header,
-    Footer
-  }
+	data(){
+		return{
+			bar:false,
+			reg:false,
+			mark:false,
+			log:false
+		}
+	},
+	created(){
+		this.$eventbus.$on('barShow',()=>{  //我的页面里设置侧边栏
+			this.bar = !this.bar
+		})
+		this.$eventbus.$on('regShow',()=>{
+			this.reg = !this.reg
+		})
+		this.$eventbus.$on('markShow',()=>{
+			this.mark = !this.mark
+		})
+		this.$eventbus.$on('logShow',()=>{
+			this.log = !this.log
+		})
+	},
+	  components:{
+			Header,
+			Footer,
+			Sidebar,
+			register,
+			login,
+			glass
+	  }
 }
 </script>
 
@@ -29,16 +64,29 @@ export default {
     .header{
       width: 100%;
       height: .84rem;
-      background: #f2f2f2;
+      background: white;
       border-bottom: 1px solid #dfdfdf;
     }
     .footer{
       width: 100%;
       height: 1rem;
-      background: #f0f0f0;
+      background: white;
+       border-top: 1px solid #dfdfdf;
     }
     .main{
+			width:100%;
+			height:100%;
       flex: 1;
+    }
+    .mark{
+    	position: absolute;
+    	top:0;
+    	width:100%;
+    	height: 100%;
+    	background: rgba(0,0,0,.3);
+    }
+    .reg{
+    	z-index: 2;
     }
 }
 </style>
